@@ -21,10 +21,12 @@ app.config.suppress_callback_exceptions = True
 
 # Load data from csv
 def load_data():
-    # To do: Completar la función 
+    """Carga los datos y convierte la columna 'time' a datetime."""
     df = pd.read_csv('datos_energia.csv')
-    df['time'] = pd.to_datetime(df['time'], format='%Y-%m-%d', errors='coerce')
+    df['time'] = pd.to_datetime(df['time'], errors='coerce') 
     df.set_index('time', inplace=True)
+    df.dropna(subset=['AT_load_actual_entsoe_transparency'], inplace=True)
+    
     return df
     
 
